@@ -4,6 +4,7 @@ import TableContext from './TableContext';
 
 function TableProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+
   const contextValue = {
     planets,
     setPlanets,

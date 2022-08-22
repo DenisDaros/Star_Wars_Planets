@@ -1,10 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import TableContext from '../context/TableContext';
 
 function Table() {
-  const { planets } = useContext(TableContext);
+  let { planets } = useContext(TableContext);
+
+  const [name, setName] = useState('');
+
+  const handleChange = () => {
+    const teste = planets.filter((i) => i.name.toLowerCase()
+      .includes(name.toLowerCase()));
+    return teste;
+  };
+  planets = handleChange();
+
   return (
     <div>
+      <div>
+        <input
+          data-testid="name-filter"
+          name="name"
+          type="text"
+          value={ name }
+          onChange={ (event) => { setName(event.target.value); handleChange(); } }
+        />
+      </div>
       <table>
         <thead>
           <tr>
