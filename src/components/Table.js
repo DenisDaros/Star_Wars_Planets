@@ -9,6 +9,13 @@ function Table() {
   const [colums, setColums] = useState('population');
   const [number, setNumber] = useState(0);
   const [operador, setOperador] = useState('maior que');
+  const [optionColums, setOptionColums] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
 
   const handleChange = () => {
     const teste = planets.filter((i) => i.name.toLowerCase()
@@ -19,13 +26,8 @@ function Table() {
   planets = handleChange();
 
   const filterNumber = () => {
-    // let infoFilter = '';
     if (operador === 'maior que') {
       return setPlanets(planets.filter((i) => Number(i[colums]) > number));
-      // console.log(planets);
-      // console.log(infoFilter);
-      // console.log(colums);
-      // console.log(Number[colums]);
     }
     if (operador === 'menor que') {
       return setPlanets(planets.filter((i) => Number(i[colums]) < number));
@@ -33,6 +35,13 @@ function Table() {
     if (operador === 'igual a') {
       return setPlanets(planets.filter((i) => i[colums] === number));
     }
+  };
+
+  const removeFilter = (option) => {
+    const index = optionColums.indexOf(option);
+    console.log(index);
+    optionColums.splice(index, 1);
+    setColums(optionColums[0]);
   };
 
   return (
@@ -54,11 +63,12 @@ function Table() {
           onChange={ (ev) => setColums(ev.target.value) }
           data-testid="column-filter"
         >
-          <option value="population">population</option>
+          {optionColums.map((i) => (<option key={ i }>{i}</option>))}
+          {/* <option value="population">population</option>
           <option value="orbital_period">orbital_period</option>
           <option value="diameter">diameter</option>
           <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          <option value="surface_water">surface_water</option> */}
         </select>
         <select
           name="operador"
@@ -81,7 +91,11 @@ function Table() {
         <button
           type="button"
           data-testid="button-filter"
-          onClick={ () => filterNumber() }
+          onClick={ () => {
+            filterNumber();
+            removeFilter(colums);
+            // setOptionColums(optionColums.splice(optionColums.indexOf(colums), 1));
+          } }
         >
           Filtrar
         </button>
