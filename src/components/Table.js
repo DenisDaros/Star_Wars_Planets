@@ -4,12 +4,11 @@ import TableContext from '../context/TableContext';
 function Table() {
   let { planets } = useContext(TableContext);
   const { setPlanets } = useContext(TableContext);
-  // console.log(planets);
   const [name, setName] = useState('');
   const [colums, setColums] = useState('population');
   const [number, setNumber] = useState(0);
   const [operador, setOperador] = useState('maior que');
-  const [optionColums, setOptionColums] = useState([
+  const [optionColums] = useState([
     'population',
     'orbital_period',
     'diameter',
@@ -64,11 +63,6 @@ function Table() {
           data-testid="column-filter"
         >
           {optionColums.map((i) => (<option key={ i }>{i}</option>))}
-          {/* <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option> */}
         </select>
         <select
           name="operador"
@@ -94,7 +88,6 @@ function Table() {
           onClick={ () => {
             filterNumber();
             removeFilter(colums);
-            // setOptionColums(optionColums.splice(optionColums.indexOf(colums), 1));
           } }
         >
           Filtrar
